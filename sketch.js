@@ -8,10 +8,11 @@ var stand1;
 var stand2;
 var box1;
 var polygon;
+var polygonImg;
 var slingshot;
 
 function preload() {
-   
+   polygonImg = loadImage("polygon.png")
 }
 
 function setup(){
@@ -19,15 +20,18 @@ function setup(){
     engine = Engine.create();
     world = engine.world;
 
+    polygon = Bodies.circle(50,200,20); 
+    World.add(world, polygon); 
+
     stand1 = new Ground(1485, 450, 400, 10);
     stand1b = new Ground(1485, 850, 250, 800);
     stand2 = new Ground(925, 700, 400, 10);
     stand2b = new Ground(925, 900, 250, 400);
 
     //polygon
-    polygon = new Polygon(50, 200, 50);
+    //polygon = new Polygon(50, 200, 50);
 
-    slingshot = new Chain(polygon.body, {x:200, y: 200})
+    slingshot = new Chain(this.polygon, {x:200, y: 200})
 
     // Blocks on stand 1
     box1 = new Box(1350, 425, 50, 50);
@@ -78,7 +82,10 @@ function draw(){
     stand2.display();
     stand2b.display();
 
-    polygon.display();
+   // polygon.display();
+
+    imageMode(CENTER); 
+    image(polygonImg, polygon.position.x, polygon.position.y, 50, 50); 
     slingshot.display();
 
     box1.display();
@@ -106,16 +113,24 @@ function draw(){
     box23.display();
     box24.display();
 
+
+
 }
 
 function mouseDragged(){
  
-    Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+    Matter.Body.setPosition(this.polygon, {x: mouseX , y: mouseY});
     
 }
 
 
 function mouseReleased(){
     slingshot.fly();
-    gameState = "launched";
+    
+}
+
+function keyPressed(){ 
+    if (keyCode === 32) { 
+        slingshot.attach(this.polygon)
+    }
 }

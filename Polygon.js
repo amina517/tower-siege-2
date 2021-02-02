@@ -1,4 +1,4 @@
-class Polygon{
+/*class Polygon{
     constructor(x, y, radius) {
         var options = {
             'restitution':0.8,
@@ -15,7 +15,7 @@ class Polygon{
         push();
         translate(this.body.position.x, this.body.position.y);
         imageMode(CENTER);
-        image(this.image, 40, 40, this.width, this.height);
+        image(this.image, 0, 0, 150, 150);
         pop();
       }
-}
+}*/

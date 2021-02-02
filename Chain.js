@@ -3,12 +3,17 @@ class Chain{
         var options = {
             bodyA: bodyA,
             pointB: pointB,
-            stiffness: 1,
-            length: 40
+            stiffness: 0.04,
+            length: 1
         }
-        this.pointB = pointB
+
         this.sling = Constraint.create(options);
+        this.pointB = pointB;
+    
         World.add(world, this.sling);
+    }
+    attach(body){ 
+        this.sling.bodyA = body; 
     }
 
     fly(){
@@ -20,6 +25,7 @@ class Chain{
             var pointA = this.sling.bodyA.position;
             var pointB = this.pointB;
             strokeWeight(4);
+            stroke("MistyRose")
             line(pointA.x, pointA.y, pointB.x, pointB.y);
         }
     }
